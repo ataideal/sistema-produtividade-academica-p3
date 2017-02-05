@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import Classes.Colaborador;
 
 public class GerenciadorDeColaboradores {
-	private ArrayList<Colaborador> colaboradores;
+	public ArrayList<Colaborador> colaboradores;
+	
+	public GerenciadorDeColaboradores (){
+		colaboradores = new ArrayList<>();
+	}
+	
+	
 	
 }

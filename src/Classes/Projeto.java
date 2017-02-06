@@ -14,7 +14,7 @@ public class Projeto {
 		colaboradores = new ArrayList<>();
 		publicacoes = new ArrayList<>();
 		professores = new ArrayList<>();
-		status = "Em elaboracao";
+		setStatus("Em elaboracao");
 	}
 
 	public String getTitulo() {
@@ -71,5 +71,13 @@ public class Projeto {
 
 	public void setValorFinanciado(double valorFinanciado) {
 		this.valorFinanciado = valorFinanciado;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

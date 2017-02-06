@@ -3,12 +3,7 @@ package Sistema;
 public class main {
 	
 	public static void main(String[] args) {
-			
-		GerenciadorDeAlunos gerenciadorAlunos = new GerenciadorDeAlunos();
-		GerenciadorDeColaboradores gerenciadorColaboradores = new GerenciadorDeColaboradores();
-		GerenciadorDeLaboratorio gerenciadorLaboratorios = new GerenciadorDeLaboratorio();
-		GerenciadorDeProfessor gerenciadorProfessor = new GerenciadorDeProfessor();
-		GerenciadorDeProjetos gerenciadorProjeto = new GerenciadorDeProjetos();
+
 		Menus menu = new Menus();
 		
 		while(true){
@@ -20,8 +15,8 @@ public class main {
 				if(m2==9){
 					break;
 				}else if(m2==1){
-					gerenciadorLaboratorios.listarLaboratorios();
-					int m3;
+					menu.menuEscolherLaboratorio();
+					
 				}
 			}else if(m1==2){
 				int m2;

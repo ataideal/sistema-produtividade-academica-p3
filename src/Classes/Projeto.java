@@ -3,18 +3,22 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Projeto {
+	private final int id;
 	private String titulo,agenciaFinanciadora,objetivo,descricao,status;
 	private Date inicio,termino;
 	private double valorFinanciado;
-	public ArrayList<Colaborador> colaboradores;
 	public ArrayList<Publicacao> publicacoes;
-	public ArrayList<Professor> professores;
+	public ArrayList<Integer> idAlunos;
+	public ArrayList<Integer> idProfessores;
+	public ArrayList<Integer> idPesquisadores;
 	
-	public Projeto (){
-		colaboradores = new ArrayList<>();
+	public Projeto (int id){
 		publicacoes = new ArrayList<>();
-		professores = new ArrayList<>();
+		idAlunos = new ArrayList<>();
+		idProfessores = new ArrayList<>();
+		idPesquisadores = new ArrayList<>();
 		setStatus("Em elaboracao");
+		this.id = id;
 	}
 
 	public String getTitulo() {
@@ -79,5 +83,9 @@ public class Projeto {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getId() {
+		return id;
 	}
 }

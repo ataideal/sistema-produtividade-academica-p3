@@ -2,8 +2,14 @@ package Classes;
 
 public class Colaborador {
 	private String nome;
+	private String email;
 	private int idade;
-	private int id;
+	private final int id;
+	
+	public Colaborador(int id){
+		this.id = id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -19,8 +25,11 @@ public class Colaborador {
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 		
 }

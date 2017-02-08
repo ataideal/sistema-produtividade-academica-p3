@@ -3,15 +3,19 @@ package Classes;
 import java.util.ArrayList;
 
 public class Laboratorio {
+	private final int id;
 	private String nome;
-	public ArrayList<Colaborador> colaboradores;
-	public ArrayList<Pesquisador> pesquisadores;
-	public ArrayList<Projeto> projetos;
+	public ArrayList<Integer> idAlunos;
+	public ArrayList<Integer> idProfessores;
+	public ArrayList<Integer> idPesquisadores;
+	public ArrayList<Integer> idProjetos;
 	
-	public Laboratorio(){
-		colaboradores = new ArrayList<>();
-		projetos = new ArrayList<>();
-		pesquisadores = new ArrayList<>();
+	public Laboratorio(int id){
+		idAlunos = new ArrayList<>();
+		idProfessores = new ArrayList<>();
+		idPesquisadores = new ArrayList<>();
+		idProjetos = new ArrayList<>();
+		this.id = id;
 	}
 	
 	public String getNome() {
@@ -20,6 +24,8 @@ public class Laboratorio {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
-	
+
+	public int getId() {
+		return id;
+	}	
 }

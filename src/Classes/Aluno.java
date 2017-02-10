@@ -2,11 +2,9 @@ package Classes;
 public class Aluno extends Colaborador{
 	private String matricula;
 	private String tipo; //Graducao, mestrado, doutorado;
-	private boolean pertenceProjeto;
 	
 	public Aluno(int id) {
 		super(id);
-		pertenceProjeto=false;
 	}
 	
 	public String getMatricula() {
@@ -23,10 +21,12 @@ public class Aluno extends Colaborador{
 		this.tipo = tipo;
 	}
 	
-	public boolean isPertenceProjeto() {
-		return pertenceProjeto;
+	@Override
+	public void imprimirInfo() {
+		super.imprimirInfo();
+		System.out.println("\tMatricula:"+matricula);
+		System.out.println("\tTipo:"+tipo);
 	}
-	public void setPertenceProjeto(boolean pertenceProjeto) {
-		this.pertenceProjeto = pertenceProjeto;
-	}
+	
+	
 }

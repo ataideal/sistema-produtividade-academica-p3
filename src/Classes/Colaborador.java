@@ -31,5 +31,14 @@ public class Colaborador {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-		
+	
+	public void imprimirInfo(){
+		System.out.println("\tNome: "+nome);
+		System.out.println("\tEmail: "+email);
+	}
+	
+	@Override
+	public String toString() {
+		return"\t  Nome:"+nome;
+	}
 }

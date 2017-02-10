@@ -3,7 +3,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Classes.Aluno;
+import Classes.Laboratorio;
+import Classes.Pesquisador;
+import Classes.Professor;
 import Classes.Projeto;
+import Classes.Publicacao;
 
 public class GerenciadorDeProjetos {
 	public ArrayList<Projeto> projetos;
@@ -88,6 +93,129 @@ public class GerenciadorDeProjetos {
 			System.out.println("\tProjeto removido!");
 		}catch (Exception e) {
 			System.out.println("\tERRO - não foi possível remover esse Projeto!");
+		}
+	}
+	
+	public void gerenciarProjeto(Projeto projeto, ArrayList<Aluno> alunos, ArrayList<Pesquisador> pesquisadores, ArrayList<Professor> professores) {
+		projeto.imprimirInfo();
+		System.out.println("\tColaboradores:");
+		System.out.println("\t Alunos");
+		for (Aluno alu : alunos) {
+			if(projeto.verificarAlunoProj(alu.getId()))
+				System.out.println(alu.toString());
+		}
+		System.out.println("\t Pesquisadores");
+		for (Pesquisador pesq : pesquisadores) {
+			if(projeto.verificarPesquisadorProj(pesq.getId()))
+				System.out.println(pesq.toString());
+		}
+		System.out.println("\t Professores");
+		for (Professor prof : professores) {
+			if(projeto.verificarProfessorProj(prof.getId()))
+				System.out.println(prof.toString());
+		}
+		System.out.println("\t Publicacoes");
+		for(Publicacao pub : projeto.publicacoes){
+			System.out.println(pub.toString());
+		}
+		
+		System.out.println("\n");
+
+		System.out.println("\t1-Alocar novo aluno");
+		System.out.println("\t2-Alocar novo pesquisador");
+		System.out.println("\t3-Alocar novo professor");
+		scan = new Scanner(System.in);
+		int a = scan.nextInt();
+		int i=0;
+		if(a==1){
+			for (Aluno alu : alunos) {
+				if(!projeto.verificarAlunoProj(alu.getId())){
+					System.out.println("\tAluno-"+(i++)+alu.toString());
+				}
+			}
+			if(i==0)
+				System.out.println("Nao existem alunos para associar");
+			else{
+				System.out.println("Digite o numero de um aluno:");
+
+				int m = scan.nextInt();
+				int j=0;
+				boolean ok=false;
+				for (Aluno alu : alunos) {
+					if(!projeto.verificarAlunoProj(alu.getId())){
+						if(j==m){
+							projeto.idAlunos.add(alu.getId());
+							ok=true;
+							break;
+						}
+						j++;
+					}
+				}
+				if(ok)
+					System.out.println("\tAluno associado!");
+				else
+					System.out.println("\tNao foi possivel associar aluno!");
+			}
+		}
+		else if(a==2){
+			for (Pesquisador pesq : pesquisadores) {
+				if(!projeto.verificarPesquisadorProj(pesq.getId())){
+					System.out.println("\tPesquisador-"+(i++)+pesq.toString());
+				}
+			}
+
+			if(i==0)
+				System.out.println("Nao existem pesquisadores para associar");
+			else{
+				System.out.println("Digite o numero de um pesquisador:");
+
+				int m = scan.nextInt();
+				int j=0;
+				boolean ok=false;
+				for (Pesquisador pesq : pesquisadores) {
+					if(!projeto.verificarPesquisadorProj(pesq.getId())){
+						if(j==m){
+							projeto.idPesquisadores.add(pesq.getId());
+							ok=true;
+							break;
+						}
+						j++;
+					}
+				}
+				if(ok)
+					System.out.println("\tPesquisador associado!");
+				else
+					System.out.println("\tNao foi possivel associar pesquisador!");
+			}
+		}
+		else if(a==3){
+			for (Professor prof : professores) {
+				if(!projeto.verificarProfessorProj(prof.getId())){
+					System.out.println("\tProfessor-"+(i++)+prof.toString());
+				}
+			}
+			if(i==0)
+				System.out.println("Nao existem professores para associar");
+			else{
+				System.out.println("Digite o numero de um professor:");
+				int m = scan.nextInt();
+				int j=0;
+				boolean ok=false;
+				for (Professor prof : professores) {
+					if(!projeto.verificarProfessorProj(prof.getId())){
+						if(j==m){
+							projeto.idProfessores.add(prof.getId());
+							ok=true;
+							break;
+						}
+						j++;
+					}
+				}
+				if(ok)
+					System.out.println("\tProfessor associado!");
+				else
+					System.out.println("\tNao foi possivel associar professor!");
+			}
 		}
 	}
 }

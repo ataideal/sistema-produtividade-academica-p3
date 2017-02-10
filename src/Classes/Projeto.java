@@ -20,7 +20,14 @@ public class Projeto {
 		setStatus("Em elaboracao");
 		this.id = id;
 	}
-
+	
+	public void imprimirInfo(){
+		System.out.println("\t\tProjeto "+titulo);
+		System.out.println("\tInicio "+inicio.toString());
+		System.out.println("\tTermino"+termino.toString());
+		System.out.println("Status:"+status);
+	}
+	
 	public String getTitulo() {
 		return titulo;
 	}
@@ -87,5 +94,26 @@ public class Projeto {
 
 	public int getId() {
 		return id;
+	}
+	
+	public boolean verificarAlunoProj(int id) {
+		if(idAlunos.contains(id))
+			return true;
+		return false;
+	}
+	public boolean verificarPesquisadorProj(int id) {
+		if(idPesquisadores.contains(id))
+			return true;
+		return false;
+	}
+	public boolean verificarProfessorProj(int id) {
+		if(idProfessores.contains(id))
+			return true;
+		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "\t Titulo:"+getTitulo()+" Status:"+getStatus();
 	}
 }

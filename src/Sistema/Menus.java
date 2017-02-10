@@ -65,12 +65,11 @@ public class Menus {
 		System.out.println("\t1-Listar alunos");
 		System.out.println("\t2-Adicionar alunos");
 		System.out.println("\t3-Remover alunos");
-		System.out.println("\t4-Associar alunos");
 		System.out.println("\t9-Sair\n");
 
 		scan = new Scanner(System.in);
 		int a = scan.nextInt();
-		if(a<1 && a>4 && a!=9)
+		if(a<1 && a>3 && a!=9)
 			return 0;
 		return a;
 	}
@@ -95,12 +94,11 @@ public class Menus {
 		System.out.println("\t1-Listar pesquisadores");
 		System.out.println("\t2-Adicionar pesquisadores");
 		System.out.println("\t3-Remover pesquisadores");
-		System.out.println("\t4-Associar pesquisadores");
 		System.out.println("\t9-Sair\n");
 
 		scan = new Scanner(System.in);
 		int a = scan.nextInt();
-		if(a<1 && a>4 && a!=9)
+		if(a<1 && a>3 && a!=9)
 			return 0;
 		return a;
 	}
@@ -125,12 +123,11 @@ public class Menus {
 		System.out.println("\t1-Listar professores");
 		System.out.println("\t2-Adicionar professor");
 		System.out.println("\t3-Remover professor");
-		System.out.println("\t4-Associar professor");
 		System.out.println("\t9-Sair\n");
 
 		scan = new Scanner(System.in);
 		int a = scan.nextInt();
-		if(a<1 && a>4 && a!=9)
+		if(a<1 && a>3 && a!=9)
 			return 0;
 		return a;
 	}
@@ -154,12 +151,11 @@ public class Menus {
 		System.out.println("\t1-Listar projetos");
 		System.out.println("\t2-Adicionar projeto");
 		System.out.println("\t3-Remover projeto");
-		System.out.println("\t4-Associar projeto");
 		System.out.println("\t9-Sair\n");
 		
 		scan = new Scanner(System.in);
 		int a = scan.nextInt();
-		if(a<1 && a>4 && a!=9)
+		if(a<1 && a>3 && a!=9)
 			return 0;
 		return a;
 	}
@@ -170,7 +166,7 @@ public class Menus {
 		scan = new Scanner(System.in);
 		int m3 = scan.nextInt();
 		try{
-			//gerenciadorAlunos.gerenciarAluno(gerenciadorLaboratorios.laboratorios,gerenciadorProjeto.projetos,gerenciadorAlunos.alunos.get(m3));
+			//gerenciadorProjeto.geren
 		}
 		catch (Exception e) {
 			System.out.println("\tERRO - esse projeto nao existe!");

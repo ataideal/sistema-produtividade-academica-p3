@@ -23,17 +23,30 @@ public class GerenciadorDeProjetos {
 	public void listarProjetos() {
 		int i=0;
 		for (Projeto pro : projetos) {
-			System.out.println("\tProjeto "+(i++)+"- "+pro.getTitulo()+" | Laboratorio-"+getLabNome(pro.getId()));
+			System.out.println("\tProjeto "+(i++)+"- "+pro.getTitulo());
 		}
 	}
 	
-	private String getLabNome(int id) {
-		return "";
-	}
-
-
-	public void adicionarProjeto(){
-		System.out.println("\tCadastro de projeto ");		
+	public void adicionarProjeto(ArrayList<Laboratorio> laboratorios){
+		System.out.println("\tCadastro de projeto ");
+		System.out.println("\tSelecione o laboratorio do projeto:");
+		int i=0;
+		for(Laboratorio lab:laboratorios){
+			System.out.println("Laboratorio " +(i++)+" - "+lab.toString());
+		}
+		boolean done=false;
+		int m=0;
+		try{
+			scan = new Scanner(System.in);
+			m = scan.nextInt();
+			laboratorios.get(m);
+		}
+		catch (Exception e) {
+			System.out.println("\tERRO - laboratorio nao existe");
+			return ;
+		}
+		
+		
 		Projeto novoProjeto = new Projeto(id++);
 		scan = new Scanner(System.in);
 		System.out.println("\tTitulo do projeto: ");
@@ -49,7 +62,7 @@ public class GerenciadorDeProjetos {
 		String objetivo = scan.nextLine();
 		novoProjeto.setObjetivo(objetivo);
 		
-		boolean done=false;
+		done=false;
 		while(!done){
 			System.out.println("\tInicio do projeto(dd/mm/aaaa): ");
 			String inicio = scan.nextLine();
@@ -70,7 +83,7 @@ public class GerenciadorDeProjetos {
 			try{
 				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 				java.sql.Date data = new java.sql.Date(format.parse(termino).getTime());
-				novoProjeto.setInicio(data);
+				novoProjeto.setTermino(data);
 				done = true;
 			}catch (Exception e) {
 				System.out.println("\tERRO - data invalida!\n");
@@ -80,7 +93,7 @@ public class GerenciadorDeProjetos {
 		System.out.println("\tValor de financiamento do projeto: ");
 		double valorFinanciado = scan.nextDouble();
 		novoProjeto.setValorFinanciado(valorFinanciado);;
-		
+		laboratorios.get(m).idProjetos.add(novoProjeto.getId());
 		projetos.add(novoProjeto);
 		System.out.println("\tProjeto cadastrado!\n");
 	}
@@ -96,22 +109,22 @@ public class GerenciadorDeProjetos {
 		}
 	}
 	
-	public void gerenciarProjeto(Projeto projeto, ArrayList<Aluno> alunos, ArrayList<Pesquisador> pesquisadores, ArrayList<Professor> professores) {
-		projeto.imprimirInfo();
+	public void gerenciarProjeto(Projeto projeto, ArrayList<Aluno> alunos, ArrayList<Pesquisador> pesquisadores, ArrayList<Professor> professores, Laboratorio lab) {
+		projeto.imprimirInfo(lab);
 		System.out.println("\tColaboradores:");
 		System.out.println("\t Alunos");
 		for (Aluno alu : alunos) {
-			if(projeto.verificarAlunoProj(alu.getId()))
+			if(projeto.verificarAlunoProj(alu.getId()) && lab.idAlunos.contains(alu.getId()))
 				System.out.println(alu.toString());
 		}
 		System.out.println("\t Pesquisadores");
 		for (Pesquisador pesq : pesquisadores) {
-			if(projeto.verificarPesquisadorProj(pesq.getId()))
+			if(projeto.verificarPesquisadorProj(pesq.getId()) && lab.idPesquisadores.contains(pesq.getId()))
 				System.out.println(pesq.toString());
 		}
 		System.out.println("\t Professores");
 		for (Professor prof : professores) {
-			if(projeto.verificarProfessorProj(prof.getId()))
+			if(projeto.verificarProfessorProj(prof.getId()) && lab.idProfessores.contains(prof.getId()))
 				System.out.println(prof.toString());
 		}
 		System.out.println("\t Publicacoes");
@@ -124,12 +137,13 @@ public class GerenciadorDeProjetos {
 		System.out.println("\t1-Alocar novo aluno");
 		System.out.println("\t2-Alocar novo pesquisador");
 		System.out.println("\t3-Alocar novo professor");
+		System.out.println("\t4-Mudar Status");
 		scan = new Scanner(System.in);
 		int a = scan.nextInt();
 		int i=0;
 		if(a==1){
 			for (Aluno alu : alunos) {
-				if(!projeto.verificarAlunoProj(alu.getId())){
+				if(!projeto.verificarAlunoProj(alu.getId()) && lab.idAlunos.contains(alu.getId())){
 					System.out.println("\tAluno-"+(i++)+alu.toString());
 				}
 			}
@@ -142,7 +156,7 @@ public class GerenciadorDeProjetos {
 				int j=0;
 				boolean ok=false;
 				for (Aluno alu : alunos) {
-					if(!projeto.verificarAlunoProj(alu.getId())){
+					if(!projeto.verificarAlunoProj(alu.getId()) && lab.idAlunos.contains(alu.getId())){
 						if(j==m){
 							projeto.idAlunos.add(alu.getId());
 							ok=true;
@@ -159,7 +173,7 @@ public class GerenciadorDeProjetos {
 		}
 		else if(a==2){
 			for (Pesquisador pesq : pesquisadores) {
-				if(!projeto.verificarPesquisadorProj(pesq.getId())){
+				if(!projeto.verificarPesquisadorProj(pesq.getId())&& lab.idPesquisadores.contains(pesq.getId())){
 					System.out.println("\tPesquisador-"+(i++)+pesq.toString());
 				}
 			}
@@ -173,7 +187,7 @@ public class GerenciadorDeProjetos {
 				int j=0;
 				boolean ok=false;
 				for (Pesquisador pesq : pesquisadores) {
-					if(!projeto.verificarPesquisadorProj(pesq.getId())){
+					if(!projeto.verificarPesquisadorProj(pesq.getId())&& lab.idPesquisadores.contains(pesq.getId())){
 						if(j==m){
 							projeto.idPesquisadores.add(pesq.getId());
 							ok=true;
@@ -190,7 +204,7 @@ public class GerenciadorDeProjetos {
 		}
 		else if(a==3){
 			for (Professor prof : professores) {
-				if(!projeto.verificarProfessorProj(prof.getId())){
+				if(!projeto.verificarProfessorProj(prof.getId())&&lab.idProfessores.contains(prof.getId())){
 					System.out.println("\tProfessor-"+(i++)+prof.toString());
 				}
 			}
@@ -202,7 +216,7 @@ public class GerenciadorDeProjetos {
 				int j=0;
 				boolean ok=false;
 				for (Professor prof : professores) {
-					if(!projeto.verificarProfessorProj(prof.getId())){
+					if(!projeto.verificarProfessorProj(prof.getId()) && lab.idProfessores.contains(prof.getId())){
 						if(j==m){
 							projeto.idProfessores.add(prof.getId());
 							ok=true;
@@ -216,6 +230,17 @@ public class GerenciadorDeProjetos {
 				else
 					System.out.println("\tNao foi possivel associar professor!");
 			}
+		}
+		else if(a==4){
+			System.out.println("Selecione o status\n1-Em elaboração\n2-Em andamento\n3-Concluido");
+			scan = new Scanner(System.in);
+			int x = scan.nextInt();
+			if(x==1)
+				projeto.setStatus("Em elaboracao");
+			else if(x==2)
+				projeto.setStatus("Em andamento");
+			else if(x==3)
+				projeto.setStatus("Concluido");
 		}
 	}
 }

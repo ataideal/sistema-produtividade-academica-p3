@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Classes.Aluno;
-import Classes.Colaborador;
 import Classes.Laboratorio;
 import Classes.Pesquisador;
 import Classes.Professor;

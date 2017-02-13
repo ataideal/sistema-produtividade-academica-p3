@@ -1,5 +1,10 @@
 package Sistema;
 
+import java.util.Collections;
+import java.util.Comparator;
+
+import Classes.Projeto;
+
 public class main {
 
 	public static void main(String[] args) {
@@ -64,7 +69,16 @@ public class main {
 						menu.menuEscolherProjeto();
 					}
 					else if(m2==2){
-						menu.gerenciadorProjeto.adicionarProjeto();
+						menu.gerenciadorProjeto.adicionarProjeto(menu.gerenciadorLaboratorios.laboratorios);
+						try {
+							Collections.sort(menu.gerenciadorProjeto.projetos, new Comparator<Projeto>() {
+								  public int compare(Projeto o1, Projeto o2) {
+								      return o1.getTermino().compareTo(o2.getTermino());
+								  }
+								});
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
 					}
 					else if(m2==3){
 						menu.gerenciadorProjeto.removerProjeto();

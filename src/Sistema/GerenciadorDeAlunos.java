@@ -3,6 +3,8 @@ package Sistema;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
 import Classes.Aluno;
 import Classes.Laboratorio;
 import Classes.Projeto;
@@ -64,6 +66,7 @@ public class GerenciadorDeAlunos {
 				System.out.println(lab.toString());
 				System.out.println("\tProjetos:");
 				for(Projeto pro : projetos){
+					
 					if(pro.verificarAlunoProj(aluno.getId())){
 						System.out.println(pro.toString());
 						System.out.println("\tPublicacoes:");

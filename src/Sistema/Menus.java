@@ -2,8 +2,8 @@ package Sistema;
 
 import java.util.Scanner;
 
-import Classes.Colaborador;
 import Classes.Laboratorio;
+
 
 public class Menus {
 	public GerenciadorDeAlunos gerenciadorAlunos = new GerenciadorDeAlunos();
@@ -166,7 +166,10 @@ public class Menus {
 		scan = new Scanner(System.in);
 		int m3 = scan.nextInt();
 		try{
-			//gerenciadorProjeto.geren
+			for(Laboratorio lab:gerenciadorLaboratorios.laboratorios){
+				if(lab.idProjetos.contains(gerenciadorProjeto.projetos.get(m3).getId()))
+					gerenciadorProjeto.gerenciarProjeto(gerenciadorProjeto.projetos.get(m3), gerenciadorAlunos.alunos, gerenciadorPesquisadores.pesquisadores, gerenciadorProfessor.professores,lab);
+			}
 		}
 		catch (Exception e) {
 			System.out.println("\tERRO - esse projeto nao existe!");

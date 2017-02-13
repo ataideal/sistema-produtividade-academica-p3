@@ -21,11 +21,11 @@ public class Projeto {
 		this.id = id;
 	}
 	
-	public void imprimirInfo(){
-		System.out.println("\t\tProjeto "+titulo);
+	public void imprimirInfo(Laboratorio lab){
+		System.out.println("\t\tProjeto "+titulo+ "\tLaboratorio: "+lab.getNome());
 		System.out.println("\tInicio "+inicio.toString());
 		System.out.println("\tTermino"+termino.toString());
-		System.out.println("Status:"+status);
+		System.out.println("\tStatus:"+status);
 	}
 	
 	public String getTitulo() {
@@ -116,4 +116,5 @@ public class Projeto {
 	public String toString() {
 		return "\t Titulo:"+getTitulo()+" Status:"+getStatus();
 	}
+
 }

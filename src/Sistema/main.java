@@ -69,7 +69,7 @@ public class main {
 						menu.menuEscolherProjeto();
 					}
 					else if(m2==2){
-						menu.gerenciadorProjeto.adicionarProjeto(menu.gerenciadorLaboratorios.laboratorios);
+						menu.gerenciadorProjeto.adicionarProjeto(menu.gerenciadorLaboratorios.laboratorios,menu.gerenciadorProfessor.professores);
 						try {
 							Collections.sort(menu.gerenciadorProjeto.projetos, new Comparator<Projeto>() {
 								  public int compare(Projeto o1, Projeto o2) {

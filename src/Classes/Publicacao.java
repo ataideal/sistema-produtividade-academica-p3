@@ -1,9 +1,11 @@
 package Classes;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Publicacao {
-	private String titulo, nomeDaConferencia, anoDePublicacao;
+	private String titulo, nomeDaConferencia;
+	private Date anoPublicacao;
 	public ArrayList<Integer> idAlunos;
 	public ArrayList<Integer> idProfessores;
 	public ArrayList<Integer> idPesquisadores;
@@ -26,16 +28,10 @@ public class Publicacao {
 	public void setNomeDaConferencia(String nomeDaConferencia) {
 		this.nomeDaConferencia = nomeDaConferencia;
 	}
-	public String getAnoDePublicacao() {
-		return anoDePublicacao;
-	}
-	public void setAnoDePublicacao(String anoDePublicacao) {
-		this.anoDePublicacao = anoDePublicacao;
-	}
 	
 	@Override
 	public String toString() {
-		return "\t  Publicacao: "+getTitulo()+" Ano:"+getAnoDePublicacao();
+		return "\t  Publicacao: "+getTitulo()+" Ano:"+getAnoPublicacao().toString();
 	}
 	public Integer getIdOrientador() {
 		return idOrientador;
@@ -60,5 +56,11 @@ public class Publicacao {
 		if(idOrientador.intValue() == id)
 			return true;
 		return false;
+	}
+	public Date getAnoPublicacao() {
+		return anoPublicacao;
+	}
+	public void setAnoPublicacao(Date anoPublicacao) {
+		this.anoPublicacao = anoPublicacao;
 	}
 }

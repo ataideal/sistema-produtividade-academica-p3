@@ -105,7 +105,7 @@ public class Menus {
 
 	public void menuEscolherPesquisador(){
 		gerenciadorPesquisadores.listarPesquisadores();
-		System.out.println("\tSelecione um pesquisador");
+		/*System.out.println("\tSelecione um pesquisador");
 		scan = new Scanner(System.in);
 		int m3 = scan.nextInt();
 		try{
@@ -113,7 +113,7 @@ public class Menus {
 		}
 		catch (Exception e) {
 			System.out.println("\tERRO - esse pesquisador nao existe!");
-		}
+		}*/
 
 	}
 
@@ -134,7 +134,7 @@ public class Menus {
 
 	public void menuEscolherProfessor(){
 		gerenciadorProfessor.listarProfessores();
-		System.out.println("\tSelecione um professor");
+		/*System.out.println("\tSelecione um professor");
 		scan = new Scanner(System.in);
 		int m3 = scan.nextInt();
 		try{
@@ -142,7 +142,7 @@ public class Menus {
 		}
 		catch (Exception e) {
 			System.out.println("\tERRO - esse professor nao existe!");
-		}
+		}*/
 
 	}
 	public int menuGerenciarProjetos(){

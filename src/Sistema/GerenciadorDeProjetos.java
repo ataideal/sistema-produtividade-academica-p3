@@ -1,6 +1,8 @@
 package Sistema;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 import Classes.Aluno;
@@ -27,7 +29,7 @@ public class GerenciadorDeProjetos {
 		}
 	}
 	
-	public void adicionarProjeto(ArrayList<Laboratorio> laboratorios){
+	public void adicionarProjeto(ArrayList<Laboratorio> laboratorios, ArrayList<Professor> professores){
 		System.out.println("\tCadastro de projeto ");
 		System.out.println("\tSelecione o laboratorio do projeto:");
 		int i=0;
@@ -46,8 +48,24 @@ public class GerenciadorDeProjetos {
 			return ;
 		}
 		
-		
 		Projeto novoProjeto = new Projeto(id++);
+		i=0;
+		System.out.println("\tSelecione um professor para o projeto:");
+		for(Professor prof:professores){
+			System.out.println("Professor " +(i++)+" - "+prof.toString());
+		}
+		int m1=0;
+		try{
+			scan = new Scanner(System.in);
+			 m1= scan.nextInt();
+			 novoProjeto.idProfessores.add(professores.get(m1).getId());
+		}
+		catch (Exception e) {
+			System.out.println("\tERRO - Professor nao existe");
+			return ;
+		}
+		
+	
 		scan = new Scanner(System.in);
 		System.out.println("\tTitulo do projeto: ");
 		String titulo = scan.nextLine();
@@ -130,6 +148,17 @@ public class GerenciadorDeProjetos {
 		System.out.println("\t Publicacoes");
 		for(Publicacao pub : projeto.publicacoes){
 			System.out.println(pub.toString());
+			System.out.print("\t  Orientador: ");
+			for(Professor prof:professores){
+				if(prof.getId() == pub.getIdOrientador())
+					System.out.println(prof.getNome());
+			}
+			
+			System.out.println("\t  Colaboradores: ");
+			for(Aluno alu:alunos){
+				if(pub.idAlunos.contains(alu.getId()))
+					System.out.println("   "+alu.toString());
+			}
 		}
 		
 		System.out.println("\n");
@@ -138,97 +167,112 @@ public class GerenciadorDeProjetos {
 		System.out.println("\t2-Alocar novo pesquisador");
 		System.out.println("\t3-Alocar novo professor");
 		System.out.println("\t4-Mudar Status");
+		System.out.println("\t5-Criar Publicacao");
 		scan = new Scanner(System.in);
 		int a = scan.nextInt();
 		int i=0;
 		if(a==1){
-			for (Aluno alu : alunos) {
-				if(!projeto.verificarAlunoProj(alu.getId()) && lab.idAlunos.contains(alu.getId())){
-					System.out.println("\tAluno-"+(i++)+alu.toString());
-				}
-			}
-			if(i==0)
-				System.out.println("Nao existem alunos para associar");
-			else{
-				System.out.println("Digite o numero de um aluno:");
-
-				int m = scan.nextInt();
-				int j=0;
-				boolean ok=false;
+			if(projeto.getStatus().equalsIgnoreCase("Em elaboracao")){
 				for (Aluno alu : alunos) {
-					if(!projeto.verificarAlunoProj(alu.getId()) && lab.idAlunos.contains(alu.getId())){
-						if(j==m){
-							projeto.idAlunos.add(alu.getId());
-							ok=true;
-							break;
-						}
-						j++;
+					if(!projeto.verificarAlunoProj(alu.getId()) && lab.idAlunos.contains(alu.getId()) && !alu.isTemProjeto()){
+						System.out.println("\tAluno-"+(i++)+alu.toString());
 					}
 				}
-				if(ok)
-					System.out.println("\tAluno associado!");
-				else
-					System.out.println("\tNao foi possivel associar aluno!");
+				if(i==0)
+					System.out.println("Nao existem alunos para associar");
+				else{
+					System.out.println("Digite o numero de um aluno:");
+
+					int m = scan.nextInt();
+					int j=0;
+					boolean ok=false;
+					for (Aluno alu : alunos) {
+						if(!projeto.verificarAlunoProj(alu.getId()) && lab.idAlunos.contains(alu.getId())&& !alu.isTemProjeto()){
+							if(j==m){
+								projeto.idAlunos.add(alu.getId());
+								alu.setTemProjeto(true);
+								ok=true;
+								break;
+							}
+							j++;
+						}
+					}
+					if(ok){
+						System.out.println("\tAluno associado!");
+					}
+					else
+						System.out.println("\tNao foi possivel associar aluno!");
+				}
+			}else{
+				System.out.println("O Projeto nao está em elaboração");
 			}
 		}
 		else if(a==2){
-			for (Pesquisador pesq : pesquisadores) {
-				if(!projeto.verificarPesquisadorProj(pesq.getId())&& lab.idPesquisadores.contains(pesq.getId())){
-					System.out.println("\tPesquisador-"+(i++)+pesq.toString());
-				}
-			}
-
-			if(i==0)
-				System.out.println("Nao existem pesquisadores para associar");
-			else{
-				System.out.println("Digite o numero de um pesquisador:");
-
-				int m = scan.nextInt();
-				int j=0;
-				boolean ok=false;
+			if(projeto.getStatus().equalsIgnoreCase("Em elaboracao")){
 				for (Pesquisador pesq : pesquisadores) {
 					if(!projeto.verificarPesquisadorProj(pesq.getId())&& lab.idPesquisadores.contains(pesq.getId())){
-						if(j==m){
-							projeto.idPesquisadores.add(pesq.getId());
-							ok=true;
-							break;
-						}
-						j++;
+						System.out.println("\tPesquisador-"+(i++)+pesq.toString());
 					}
 				}
-				if(ok)
-					System.out.println("\tPesquisador associado!");
-				else
-					System.out.println("\tNao foi possivel associar pesquisador!");
+
+				if(i==0)
+					System.out.println("Nao existem pesquisadores para associar");
+				else{
+					System.out.println("Digite o numero de um pesquisador:");
+
+					int m = scan.nextInt();
+					int j=0;
+					boolean ok=false;
+					for (Pesquisador pesq : pesquisadores) {
+						if(!projeto.verificarPesquisadorProj(pesq.getId())&& lab.idPesquisadores.contains(pesq.getId())){
+							if(j==m){
+								projeto.idPesquisadores.add(pesq.getId());
+								ok=true;
+								break;
+							}
+							j++;
+						}
+					}
+					if(ok)
+						System.out.println("\tPesquisador associado!");
+					else
+						System.out.println("\tNao foi possivel associar pesquisador!");
+				}
+			}else{
+				System.out.println("O Projeto nao está em elaboração");
 			}
 		}
 		else if(a==3){
-			for (Professor prof : professores) {
-				if(!projeto.verificarProfessorProj(prof.getId())&&lab.idProfessores.contains(prof.getId())){
-					System.out.println("\tProfessor-"+(i++)+prof.toString());
-				}
-			}
-			if(i==0)
-				System.out.println("Nao existem professores para associar");
-			else{
-				System.out.println("Digite o numero de um professor:");
-				int m = scan.nextInt();
-				int j=0;
-				boolean ok=false;
+			if(projeto.getStatus().equalsIgnoreCase("Em elaboracao")){
 				for (Professor prof : professores) {
-					if(!projeto.verificarProfessorProj(prof.getId()) && lab.idProfessores.contains(prof.getId())){
-						if(j==m){
-							projeto.idProfessores.add(prof.getId());
-							ok=true;
-							break;
-						}
-						j++;
+					if(!projeto.verificarProfessorProj(prof.getId())&&lab.idProfessores.contains(prof.getId())){
+						System.out.println("\tProfessor-"+(i++)+prof.toString());
 					}
 				}
-				if(ok)
-					System.out.println("\tProfessor associado!");
-				else
-					System.out.println("\tNao foi possivel associar professor!");
+				if(i==0)
+					System.out.println("Nao existem professores para associar");
+				else{
+					System.out.println("Digite o numero de um professor:");
+					int m = scan.nextInt();
+					int j=0;
+					boolean ok=false;
+					for (Professor prof : professores) {
+						if(!projeto.verificarProfessorProj(prof.getId()) && lab.idProfessores.contains(prof.getId())){
+							if(j==m){
+								projeto.idProfessores.add(prof.getId());
+								ok=true;
+								break;
+							}
+							j++;
+						}
+					}
+					if(ok)
+						System.out.println("\tProfessor associado!");
+					else
+						System.out.println("\tNao foi possivel associar professor!");
+				}
+			}else{
+				System.out.println("O Projeto nao está em elaboração");
 			}
 		}
 		else if(a==4){
@@ -239,8 +283,106 @@ public class GerenciadorDeProjetos {
 				projeto.setStatus("Em elaboracao");
 			else if(x==2)
 				projeto.setStatus("Em andamento");
-			else if(x==3)
-				projeto.setStatus("Concluido");
+			else if(x==3){
+				if(projeto.publicacoes.size()>0)
+					projeto.setStatus("Concluido");
+				else
+					System.out.println("\tNao existem publicacoes no projeto");
+			}
+				
+		}
+		else if(a==5){
+			if(projeto.getStatus().equalsIgnoreCase("Em andamento")){
+				Publicacao novaPublicacao = new Publicacao();
+				scan = new Scanner(System.in);
+				System.out.println("\tTitulo da publicacao: ");
+				String titulo = scan.nextLine();
+				novaPublicacao.setTitulo(titulo);
+				System.out.println("\tNome da conferencia: ");
+				String conferencia = scan.nextLine();
+				novaPublicacao.setNomeDaConferencia(conferencia);
+				
+				scan = new Scanner(System.in);
+				boolean done = false;
+				while(!done){
+					System.out.println("\tAno da publicacao(aaaa): ");
+					String ano = scan.nextLine();
+					try{
+						SimpleDateFormat format = new SimpleDateFormat("yyyy");
+						java.sql.Date data = new java.sql.Date(format.parse(ano).getTime());
+						novaPublicacao.setAnoPublicacao(data);
+						done = true;
+					}catch (Exception e) {
+						System.out.println("\tERRO - data invalida!\n");
+					}
+				}
+				
+				i=0;
+				System.out.println("\tSelecione um aluno (-1 para parar): ");
+				for(Aluno alu:alunos){
+					if(projeto.idAlunos.contains(alu.getId())){
+						System.out.println("\tAluno "+(i++)+" Nome: "+alu.getNome());
+					}
+				}
+				int c=0;
+				scan = new Scanner(System.in);
+				while(c!=-1){
+					try {
+						c = scan.nextInt();
+						if(c!=-1){
+							int j=0;
+							for(Aluno alu:alunos){
+								if(projeto.idAlunos.contains(alu.getId())){
+									if(j==c){
+										novaPublicacao.idAlunos.add(alu.getId());
+										break;
+									}
+								}
+							}
+
+						}
+					} catch (Exception e) {
+						System.out.println("\tERRO - nao foi possivel adicionar aluno");
+					}
+				}
+				i=0;
+				System.out.println("\tSelecione um professor orientador: ");
+				for(Professor prof:professores){
+					if(projeto.idProfessores.contains(prof.getId())){
+						System.out.println("\tProfessor "+(i++)+" Nome: "+prof.getNome());
+					}
+				}
+				c=0;
+				try{
+					c = scan.nextInt();
+					int j=0;
+					for(Professor prof:professores){
+						if(projeto.idProfessores.contains(prof.getId())){
+							if(j==c){
+								novaPublicacao.setIdOrientador(prof.getId());
+								break;
+							}
+						}
+					}
+				}catch(Exception e){
+					System.out.println("\tERRO - nao foi possivel adicionar orientador");
+				}
+				
+				projeto.publicacoes.add(novaPublicacao);
+				
+				try {
+					Collections.sort(projeto.publicacoes, new Comparator<Publicacao>() {
+						  public int compare(Publicacao o1, Publicacao o2) {
+						      return o1.getAnoPublicacao().compareTo(o2.getAnoPublicacao());
+						  }
+						});
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				System.out.println("\tPublicacao adicionada\n");
+			}else{
+				System.out.println("\tProjeto nao está em andamento!");
+			}
 		}
 	}
 }

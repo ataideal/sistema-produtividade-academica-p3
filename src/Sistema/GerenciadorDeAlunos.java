@@ -3,8 +3,6 @@ package Sistema;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
 import Classes.Aluno;
 import Classes.Laboratorio;
 import Classes.Projeto;

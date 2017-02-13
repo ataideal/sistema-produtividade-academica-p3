@@ -26,8 +26,11 @@ public class Projeto {
 		System.out.println("\tInicio "+inicio.toString());
 		System.out.println("\tTermino"+termino.toString());
 		System.out.println("\tStatus:"+status);
+		System.out.println("\tAgencia Financiadora:"+agenciaFinanciadora);
+		System.out.println("\tValor Financiado:"+valorFinanciado);
+		System.out.println("\tObjetivo:"+objetivo);
+		System.out.println("\tDescricao:"+descricao);
 	}
-	
 	public String getTitulo() {
 		return titulo;
 	}

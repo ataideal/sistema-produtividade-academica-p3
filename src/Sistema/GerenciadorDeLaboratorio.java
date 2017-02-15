@@ -173,6 +173,9 @@ public class GerenciadorDeLaboratorio {
 			System.out.println("\tERRO - não foi possível remover esse laboratorio!");
 		}
 	}
+	public int totalLaboratorios() {
+		return laboratorios.size();
+	}
 
 
 

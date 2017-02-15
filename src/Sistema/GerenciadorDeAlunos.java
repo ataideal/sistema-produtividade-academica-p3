@@ -79,4 +79,8 @@ public class GerenciadorDeAlunos {
 			System.out.println("\n");
 		}
 	}
+
+	public int totalAlunos() {
+		return alunos.size();
+	}
 }

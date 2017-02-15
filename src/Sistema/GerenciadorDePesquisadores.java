@@ -2,7 +2,11 @@ package Sistema;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Classes.Laboratorio;
 import Classes.Pesquisador;
+import Classes.Professor;
+import Classes.Projeto;
+import Classes.Publicacao;
 
 public class GerenciadorDePesquisadores {
 	public ArrayList<Pesquisador> pesquisadores;
@@ -48,6 +52,34 @@ public class GerenciadorDePesquisadores {
 		}
 	}
 	
+	
+	public void gerenciarPesquisador(ArrayList<Laboratorio> laboratorios, ArrayList<Projeto> projetos, Pesquisador pesquisador) {
+		pesquisador.imprimirInfo();
+		System.out.println("\tLaboratorios:");
+		for (Laboratorio lab : laboratorios) {
+			if(lab.verificarPesquisadorLab(pesquisador.getId())){
+				System.out.println(lab.toString());
+				System.out.println("\tProjetos:");
+				for(Projeto pro : projetos){
+					
+					if(pro.verificarPesquisadorProj(pesquisador.getId())){
+						System.out.println(pro.toString());
+						System.out.println("\tPublicacoes:");
+						for(Publicacao pub : pro.publicacoes){
+							if(pub.verificarPesquisadorPub(pesquisador.getId())){
+								System.out.println(pub.toString());
+							}
+						}
+					}
+				}
+			}
+			System.out.println("\n");
+		}
+	}
+
+	public int totalPesquisadores() {
+		return pesquisadores.size();
+	}
 	
 	
 }

@@ -3,6 +3,7 @@ package Sistema;
 import java.util.Scanner;
 
 import Classes.Laboratorio;
+import Classes.Projeto;
 
 
 public class Menus {
@@ -21,6 +22,7 @@ public class Menus {
 		System.out.println("\t3-Gerenciar Professores");
 		System.out.println("\t4-Gerenciar Projetos");
 		System.out.println("\t5-Gerenciar Pesquisadores");
+		System.out.println("\t6-Relatorio");
 		System.out.println("\t9-Sair\n");
 
 		scan = new Scanner(System.in);
@@ -105,15 +107,15 @@ public class Menus {
 
 	public void menuEscolherPesquisador(){
 		gerenciadorPesquisadores.listarPesquisadores();
-		/*System.out.println("\tSelecione um pesquisador");
+		System.out.println("\tSelecione um pesquisador");
 		scan = new Scanner(System.in);
 		int m3 = scan.nextInt();
 		try{
-			//gerenciadorAlunos.gerenciarAluno(gerenciadorLaboratorios.laboratorios,gerenciadorProjeto.projetos,gerenciadorAlunos.alunos.get(m3));
+			gerenciadorPesquisadores.gerenciarPesquisador(gerenciadorLaboratorios.laboratorios,gerenciadorProjeto.projetos,gerenciadorPesquisadores.pesquisadores.get(m3));
 		}
 		catch (Exception e) {
 			System.out.println("\tERRO - esse pesquisador nao existe!");
-		}*/
+		}
 
 	}
 
@@ -134,15 +136,15 @@ public class Menus {
 
 	public void menuEscolherProfessor(){
 		gerenciadorProfessor.listarProfessores();
-		/*System.out.println("\tSelecione um professor");
+		System.out.println("\tSelecione um professor");
 		scan = new Scanner(System.in);
 		int m3 = scan.nextInt();
 		try{
-			//gerenciadorAlunos.gerenciarAluno(gerenciadorLaboratorios.laboratorios,gerenciadorProjeto.projetos,gerenciadorAlunos.alunos.get(m3));
+			gerenciadorProfessor.gerenciarProfessor(gerenciadorLaboratorios.laboratorios,gerenciadorProjeto.projetos,gerenciadorProfessor.professores.get(m3));
 		}
 		catch (Exception e) {
 			System.out.println("\tERRO - esse professor nao existe!");
-		}*/
+		}
 
 	}
 	public int menuGerenciarProjetos(){
@@ -175,5 +177,21 @@ public class Menus {
 			System.out.println("\tERRO - esse projeto nao existe!");
 		}
 	
+	}
+	
+	public void menuRelatorio(){
+		System.out.println("\n\tLaboratorios:"+gerenciadorLaboratorios.totalLaboratorios());
+		System.out.println("\tProjetos:"+gerenciadorProjeto.totalProjetos());
+		System.out.println("\t	Projetos em elaboracao:"+gerenciadorProjeto.totalProjetosElaboracao());
+		System.out.println("\t	Projetos em andamento:"+gerenciadorProjeto.totalProjetosAndamento());
+		System.out.println("\t	Projetos concluidos:"+gerenciadorProjeto.totalProjetosConcluido());
+		System.out.println("\tColaboradores:"+(gerenciadorAlunos.totalAlunos()+gerenciadorProfessor.totalProfessores()+gerenciadorPesquisadores.totalPesquisadores()));
+		System.out.println("\t	Alunos:"+gerenciadorAlunos.totalAlunos());
+		System.out.println("\t	Professores:"+gerenciadorProfessor.totalProfessores());
+		System.out.println("\t	Pesquisadores:"+gerenciadorPesquisadores.totalPesquisadores());
+		System.out.println("\tPublicacoes:"+gerenciadorProjeto.totalPublicacoes());
+		System.out.println("\t	Alunos envolvidos em producoes:"+gerenciadorProjeto.totalAlunosPublicacoes());
+		System.out.println("\t	Professores envolvidos em producoes:"+gerenciadorProjeto.totalProfessoresPublicacoes());
+		System.out.println("\n");
 	}
 }

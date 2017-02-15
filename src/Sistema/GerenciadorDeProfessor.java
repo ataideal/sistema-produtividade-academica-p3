@@ -3,7 +3,11 @@ package Sistema;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Classes.Aluno;
+import Classes.Laboratorio;
 import Classes.Professor;
+import Classes.Projeto;
+import Classes.Publicacao;
 
 public class GerenciadorDeProfessor {
 	public ArrayList<Professor> professores;
@@ -45,6 +49,34 @@ public class GerenciadorDeProfessor {
 		}catch (Exception e) {
 			System.out.println("\tERRO - não foi possível remover esse Professor!");
 		}
+	}
+	
+	public void gerenciarProfessor(ArrayList<Laboratorio> laboratorios, ArrayList<Projeto> projetos, Professor professor) {
+		professor.imprimirInfo();
+		System.out.println("\tLaboratorios:");
+		for (Laboratorio lab : laboratorios) {
+			if(lab.verificarProfessorLab(professor.getId())){
+				System.out.println(lab.toString());
+				System.out.println("\tProjetos:");
+				for(Projeto pro : projetos){
+					
+					if(pro.verificarProfessorProj(professor.getId())){
+						System.out.println(pro.toString());
+						System.out.println("\tPublicacoes:");
+						for(Publicacao pub : pro.publicacoes){
+							if(pub.verificarProfessorPub(professor.getId())){
+								System.out.println(pub.toString());
+							}
+						}
+					}
+				}
+			}
+			System.out.println("\n");
+		}
+	}
+
+	public int totalProfessores() {
+		return professores.size();
 	}
 	
 }

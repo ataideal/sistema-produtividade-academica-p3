@@ -20,8 +20,34 @@ public class GerenciadorDeProjetos {
 		projetos = new ArrayList<>();
 		id = 0;
 	}
+	public int totalProjetos(){
+		return projetos.size();
+	}
+	public int totalProjetosAndamento(){
+		int total=0;
+		for(Projeto proj:projetos){
+			if(proj.getStatus().equalsIgnoreCase("Em andamento"))
+				total++;
+		}
+		return total;
+	}
+	public int totalProjetosConcluido(){
+		int total=0;
+		for(Projeto proj:projetos){
+			if(proj.getStatus().equalsIgnoreCase("Concluido"))
+				total++;
+		}
+		return total;
+	}
 	
-	
+	public int	totalProjetosElaboracao(){
+		int total=0;
+		for(Projeto proj:projetos){
+			if(proj.getStatus().equalsIgnoreCase("Em elaboracao"))
+				total++;
+		}
+		return total;
+	}
 	public void listarProjetos() {
 		int i=0;
 		for (Projeto pro : projetos) {
@@ -373,7 +399,7 @@ public class GerenciadorDeProjetos {
 				try {
 					Collections.sort(projeto.publicacoes, new Comparator<Publicacao>() {
 						  public int compare(Publicacao o1, Publicacao o2) {
-						      return o1.getAnoPublicacao().compareTo(o2.getAnoPublicacao());
+						      return o2.getAnoPublicacao().compareTo(o1.getAnoPublicacao());
 						  }
 						});
 				} catch (Exception e) {
@@ -384,5 +410,32 @@ public class GerenciadorDeProjetos {
 				System.out.println("\tProjeto nao está em andamento!");
 			}
 		}
+	}
+	public int totalPublicacoes() {
+		int total=0;
+		for(Projeto proj:projetos){
+			total += proj.publicacoes.size();
+		}
+		return total;
+	}
+	public int totalAlunosPublicacoes() {
+		int total=0;
+		for(Projeto proj:projetos){
+			for(Publicacao pub:proj.publicacoes){
+				total += pub.idAlunos.size();
+			}
+		}
+		return total;
+	}
+	
+	public int totalProfessoresPublicacoes() {
+		int total=0;
+		for(Projeto proj:projetos){
+			for(Publicacao pub:proj.publicacoes){
+				total++;
+				total += pub.idProfessores.size();
+			}
+		}
+		return total;
 	}
 }

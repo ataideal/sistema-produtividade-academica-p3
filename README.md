@@ -28,8 +28,7 @@ IDE: Eclipse Neon.2
 	[x] Listar
 	[x] Associar
 #### Publicacoes
-	[ ] Add
-	[ ] Remover
+	[x] Add
 	[x] Listar
-	[ ] Associar
-#### [ ] Relatórios
+	[x] Associar
+#### [x] Relatórios
